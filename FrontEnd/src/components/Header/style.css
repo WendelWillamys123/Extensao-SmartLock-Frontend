@@ -1,0 +1,9 @@
+header#main-header{
+    position: absolute;
+    height: 50px;
+    width: 100%;
+    padding: 20px 0;
+    font-size:20px;
+    text-align:center;
+    background: linear-gradient(270.01deg, #CB66FF 0%, rgba(255, 255, 255, 0) 100%), #00AAFF;
+}
