@@ -5,18 +5,20 @@ import {Redirect} from 'react-router-dom';
 import api from '../../../../../services/api';
 
 function Check({ idUser = 'shadow', onClose = () => {}, user, load}){
+    const _id = user._id;
 
     const handleClose = (e) => {
         if(e.target.id === idUser) onClose();
         else ;
     }
 
-    const _id = user._id;
-
-
     async function onDelete(){
-        const user_id = await api.delete('/users/delete', { _id: _id});
-         console.log(user_id);
+
+        await api.delete('/users/delete', { 
+           headers:{
+               id: _id,
+           }, 
+        });
          load();
      }
 

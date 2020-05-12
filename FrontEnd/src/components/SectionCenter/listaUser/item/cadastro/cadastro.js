@@ -16,7 +16,7 @@ function Cadastro ({onClose = () => {}, load}){
             nome,
             email,
             Macs,
-            matricula,
+            matricula, 
         });
 
         setNome('');  

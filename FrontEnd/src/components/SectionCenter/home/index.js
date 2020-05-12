@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from "react";
 import "./style.css";
 import api from '../../../services/api';
-import {Link} from 'react-router-dom';
 
 import UserIcon from '@material-ui/icons/PersonOutlineOutlined';
 
@@ -25,12 +24,12 @@ function Header() {
             </div> 
     
         <div id="sectionUser">
-            {users.map(user => <Link to={`/user/${user._id}`} style={{textDecoration: 'none'}}>
+            {users.map(user => 
                 <div id="buttonUser" key={user._id}>
                     <UserIcon style={{margin: '0px 10px 0px 10px'}}/>
                     <strong>{user.nome}</strong>
                     </div>
-                </Link>)}
+                )}
         </div>
         </>
     );

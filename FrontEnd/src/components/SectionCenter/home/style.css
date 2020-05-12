@@ -13,7 +13,7 @@ div#buttonUser{
 }
 
 div#sectionUser{
-    top: 100px;
+    top: 80px;
     position: absolute;
     padding: 20px;
     display: flex;
@@ -34,18 +34,24 @@ div.section{
     margin: 10px;
     margin-left: 0;
     display: flex;
-    top: 40px;
+    top: 20px;
     left: 0px;
     align-items: center;
     border-radius: 0px 50px 50px 0px;
-    height: 30px;
-    width: 400px;
+    height: 27px;
+    width: 300px;
     border: 1px solid #C67FF1;
     border-left: none;
     background-color: white;
+    font-size: 13px;
 }
 
 div spam{
     margin-left: 25%;
     color: #C67FF1;
 }
+
+div#buttonUser:hover{
+    background: rgba(169, 71, 230, 0.85);
+    transition: background 0.5s;
+    }

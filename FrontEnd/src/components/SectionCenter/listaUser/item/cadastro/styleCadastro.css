@@ -90,7 +90,7 @@ form.formCadastro strong{
     line-height: 23px;
 }
 
-div#buttonDirection{
+div#buttonDirection {
     margin: 40px 0 0 10px;
     display: flex;
     flex-direction: row;

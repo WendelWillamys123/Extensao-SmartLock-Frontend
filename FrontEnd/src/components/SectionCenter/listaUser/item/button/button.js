@@ -4,7 +4,7 @@ import './style.css';
 import MenuItem from './menuItem';
 import MenuIcon from '@material-ui/icons/Menu';
 
- function ButtonUser({user, load}) {
+ function ButtonUser({id = "menuUser", user, load}) {
 
   const [box, setBox] = useState(false);
 

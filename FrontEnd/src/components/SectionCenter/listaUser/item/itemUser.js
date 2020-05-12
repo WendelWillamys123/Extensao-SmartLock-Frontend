@@ -7,7 +7,6 @@ import Button from './button/button';
 
 function ItemUsuario ({user, load}){
 
-
     return(
         <li className="userItem">
         <header>

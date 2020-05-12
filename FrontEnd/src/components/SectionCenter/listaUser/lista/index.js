@@ -6,7 +6,7 @@ import Cadastro from '../item/cadastro/cadastro';
 import api from '../../../../services/api';
 import UserAdd from '@material-ui/icons/PersonAdd';
 
-function Lista (){
+function Lista ({id ="listagem"}){
 
     const [users, setUsers] = useState([]);
     const [nome, setName] = useState('');
@@ -44,6 +44,11 @@ function Lista (){
        setArray(busca);
     }
 
+    const handleClose = (e) => {
+        if(e.target.id === id) setVisibleForm(false);
+        else ;
+    }
+
     return (
        
         <>
@@ -67,7 +72,7 @@ function Lista (){
             </div>
         </aside>
             <main>
-        <div id="listagem">
+        <div id="listagem" onClick={handleClose}>
 
         <ul id="itens">
 
