@@ -1,7 +1,6 @@
 import React from 'react';
 import './style.css';
 
-import {Redirect} from 'react-router-dom';
 import api from '../../../../../services/api';
 
 function Check({ idUser = 'shadow', onClose = () => {}, user, load}){

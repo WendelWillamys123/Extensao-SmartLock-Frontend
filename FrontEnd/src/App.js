@@ -8,6 +8,7 @@ import SectionLeft from './components/SectionLeft';
 
 import Lista from './components/SectionCenter/listaUser/lista';
 import Home from './components/SectionCenter/home';
+import Groups from './components/SectionCenter/groups';
 
 
 function App (){
@@ -22,6 +23,7 @@ function App (){
           <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/listaUser" component={Lista}/>
+                <Route exact path="/groups" component={Groups}/>
                 <Route component={()=> <div>Erro 404</div>} />
             </Switch>
           </main>

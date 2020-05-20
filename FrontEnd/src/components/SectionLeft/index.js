@@ -13,7 +13,7 @@ import PermissoesIcon from '@material-ui/icons/SettingsOutlined';
 
 
 
-function SectionLeft(props){ 
+function SectionLeft(){ 
 
     
 return(
@@ -22,10 +22,10 @@ return(
         {<HomeIcon style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}}/>}
         <label id="label1">Home</label>
         </div></Link>
-        <div className="button">
+        <Link to="/groups" style={{textDecoration: 'none'}}><div className="button">
         <GroupIcon style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}}/>
         <label id="label1">Grupos</label>
-        </div>
+        </div></Link>
         <div className="button">
         <DoorIcon style={{color: '#18A0FB', margin: '0px 12px 0px 12px'}}/>
         <label id="label1">Local físico</label>
