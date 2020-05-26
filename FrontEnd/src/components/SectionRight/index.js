@@ -25,13 +25,13 @@ function SectionLeft({type, component, onDelete=() =>{}, onUpload=() =>{}}){
 return(
     <div id="sectionRight">
        <div className="infoComponent">
-            <strong id="nameComponent">{render.name}</strong>
-            <span className="typeComponent"> {type} </span>
-            <div className="crud">
-            <button className="Editar"  onClick={()=>setBoxEdit(true)}>Editar</button>
-            <button className="Excluir"  onClick={()=>setBoxRm(true)}>Excluir</button>
-            </div>       
+            <h3 id="nameComponent">{render.name}</h3>
+            <h5 className="typeComponent"> {type} </h5>ss
        </div>
+       <div className="crud">
+            <button className="editSectionRight"  onClick={()=>setBoxEdit(true)}>Editar</button>
+            <button className="rmSectionRight"  onClick={()=>setBoxRm(true)}>Excluir</button>
+        </div>  
         {boxEdit? <BoxEdit type={type} _id={render._id} onClose={()=> setBoxEdit(false)} load={reload}/> : null}
         {boxRm? <BoxRM type={type} _id={render._id} onClose={()=> setBoxRm(false)} onDelete={onDelete}/> : null}
     </div>

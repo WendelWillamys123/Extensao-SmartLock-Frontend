@@ -6,7 +6,6 @@ import api from '../../../services/api';
 function Check({ id = 'shadow', onClose = () => {}, _id, load = () =>{}, type}){
 
     const [name, setName] = useState('');
-    const [updateComponent, setUpdateComponent] = useState('');
 
     const handleClose = (e) => {
         if(e.target.id === id) onClose();

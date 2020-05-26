@@ -18,30 +18,43 @@ function SectionLeft(){
     
 return(
     <div id="sectionLeft">
+
         <Link to="/" style={{textDecoration: 'none'}}><div className="button">
         {<HomeIcon style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}}/>}
         <label id="label1">Home</label>
-        </div></Link>
-        <Link to="/groups" style={{textDecoration: 'none'}}><div className="button">
+        </div>
+        </Link>
+
+        <Link to="/groups" style={{textDecoration: 'none'}}>
+        <div className="button" onClick={()=> {
+            localStorage.setItem("componentMaster", JSON.stringify("reload"))}}>
         <GroupIcon style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}}/>
         <label id="label1">Grupos</label>
-        </div></Link>
+        </div>
+        </Link>
+
         <div className="button">
         <DoorIcon style={{color: '#18A0FB', margin: '0px 12px 0px 12px'}}/>
         <label id="label1">Local físico</label>
         </div>
+
+        <Link to="/locks" style={{textDecoration: 'none'}}>
         <div className="button">
         <LockIcon  style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}} />
         <label id="label1">Locks</label>
         </div>
+        </Link>
+
         <div className="button">
         <PermissoesIcon  style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}} />
         <label id="label1">Permissões</label>
         </div>
+
         <Link to="/listaUser" style={{textDecoration: 'none'}}><div className="button">
         <UserIcon style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}} />
         <label id="label1">Usuários</label>
-        </div></Link>
+        </div>
+        </Link>
     </div>
 );
 };

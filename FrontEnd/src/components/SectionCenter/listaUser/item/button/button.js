@@ -4,7 +4,7 @@ import './style.css';
 import MenuItem from './menuItem';
 import MenuIcon from '@material-ui/icons/Menu';
 
- function ButtonUser({id = "menuUser", user, load}) {
+ function ButtonUser({idUser = () => {}, user, load}) {
 
   const [box, setBox] = useState(false);
 
@@ -19,7 +19,7 @@ import MenuIcon from '@material-ui/icons/Menu';
         <MenuIcon/>
       </button>     
     </div>
-     {box ? <MenuItem user={user} load={load}/> : null}
+     {box ? <MenuItem user={user} load={load} idUser={idUser}/> : null}
      </>
   );
 }

@@ -9,9 +9,18 @@ import SectionLeft from './components/SectionLeft';
 import Lista from './components/SectionCenter/listaUser/lista';
 import Home from './components/SectionCenter/home';
 import Groups from './components/SectionCenter/groups';
+import Locks from './components/SectionCenter/locks';
+import User from './components/SectionCenter/users';
 
 
 function App (){
+
+  var id= null;
+
+  function loadUser(idUser){
+    
+    id= idUser;
+  }
 
   return (
         <div className="App">
@@ -22,8 +31,10 @@ function App (){
           <main id="center"> 
           <Switch>
                 <Route exact path="/" component={Home}/>
-                <Route exact path="/listaUser" component={Lista}/>
+                <Route exact path="/listaUser" render={()=> <Lista idUser={loadUser}/>}/>
+                <Route exact path="/user" render={()=> <User idUser={id}/>}/>
                 <Route exact path="/groups" component={Groups}/>
+                <Route exact path="/locks" component={Locks}/>
                 <Route component={()=> <div>Erro 404</div>} />
             </Switch>
           </main>

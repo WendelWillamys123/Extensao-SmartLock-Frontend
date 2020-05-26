@@ -5,7 +5,7 @@ import './style.css';
 import UserIcon from '@material-ui/icons/AccountCircle';
 import Button from './button/button';
 
-function ItemUsuario ({user, load}){
+function ItemUsuario ({idUser = () => {}, user, load}){
 
     return(
         <li className="userItem">
@@ -17,7 +17,7 @@ function ItemUsuario ({user, load}){
           
         </header> 
         <div id="button">
-        <Button user={user} load={load}/>
+        <Button user={user} load={load} idUser={idUser}/>
         </div>
     </li>
 

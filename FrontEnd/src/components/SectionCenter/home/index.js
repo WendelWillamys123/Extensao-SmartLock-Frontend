@@ -26,7 +26,7 @@ function Home({idCloseSectionRight= "home"}) {
         async function loaderUser() {
              const response = await api.get('/users');
 
-            setUsers(response.data);
+            setUsers(response.data.slice(-4));
          }
          loaderUser();
      }, []);
@@ -36,8 +36,8 @@ function Home({idCloseSectionRight= "home"}) {
             const responseGroup = await api.get('/groups');
             const responseLocks = await api.get('/locks');
     
-            setLocks(responseLocks.data);
-            setGroups(responseGroup.data);
+            setLocks(responseLocks.data.slice(-4));
+            setGroups(responseGroup.data.slice(-4));
          }
          loaderComponents();
      }, []);
@@ -86,8 +86,9 @@ function Home({idCloseSectionRight= "home"}) {
     
         <div className="sectionComponent">
             {users.map(user => 
-                <div className="buttonComponent" key={user._id} onDoubleClickCapture={()=> {
-                    setPath("/users");
+                <div className="buttonComponent" key={user._id} onDoubleClick={()=> {
+                    localStorage.setItem("userId", JSON.stringify(user));
+                    setPath("/user");
                    setRedirect(true);
                    }}>
                     <UserIcon style={{margin: '0px 10px 0px 10px'}}/>
@@ -104,11 +105,17 @@ function Home({idCloseSectionRight= "home"}) {
                     setSectionSee(!sectionSee);
                         }}
                         onDoubleClick={ ()=> {
+                            var component = {
+                                path: "/search/groups",
+                                element: group
+                            };
+                            localStorage.setItem("componentMaster", JSON.stringify(component));
                              setPath("/groups");
                             setRedirect(true);
                             }
                         }
-                    key={group._id}>
+                    key={group._id}
+                    groupMaster={group._id}>
                     <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
                     <strong id="name">{group.name}</strong>
                     </div>
@@ -123,6 +130,11 @@ function Home({idCloseSectionRight= "home"}) {
                     setSectionSee(!sectionSee);
                         }}
                     onDoubleClick={()=> {
+                        var component = {
+                            path: "/search/groups",
+                            element: lock
+                        };
+                        localStorage.setItem("componentMaster", JSON.stringify(component));
                         setPath("/groups");
                        setRedirect(true);
                        }}

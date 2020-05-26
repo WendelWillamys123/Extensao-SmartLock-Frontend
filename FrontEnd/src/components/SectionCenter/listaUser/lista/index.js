@@ -6,7 +6,7 @@ import Cadastro from '../item/cadastro/cadastro';
 import api from '../../../../services/api';
 import UserAdd from '@material-ui/icons/PersonAdd';
 
-function Lista ({id ="listagem"}){
+function Lista ({idUser = () => {}, id ="listagem"}){
 
     const [users, setUsers] = useState([]);
     const [nome, setName] = useState('');
@@ -21,6 +21,7 @@ function Lista ({id ="listagem"}){
        setArray(response.data);
        setUsers(response.data);
     }
+
 
     useEffect(()=>{
         async function loaderUser() {
@@ -77,7 +78,7 @@ function Lista ({id ="listagem"}){
         <ul id="itens">
 
               {array.map(user => (
-                <ItemUser load={load} user={user} key={user._id} />
+                <ItemUser load={load} user={user} key={user._id} idUser={idUser} />
               ))}
 
             </ul>

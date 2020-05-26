@@ -9,10 +9,10 @@ import LockIcon from '@material-ui/icons/LockOutlined';
 
 function Group({idCloseSectionRight= "group"}) {
     
-    const [responses, setResponses] = useState([]);
-    const [render, setRender] = useState([]);
+    const [primeiraVez, setPrimeiraVez]= useState(true);
+    const [content, setContent] = useState([]);
 
-    const [primeira, setPrimeira] = useState(true);
+    const [render, setRender] = useState([]);
 
     const [sectionSee, setSectionSee] = useState(false);
     const [component, setComponent] = useState('');
@@ -21,10 +21,20 @@ function Group({idCloseSectionRight= "group"}) {
 
      useEffect(()=>{
         async function loaderComponents() {
+            var data = await localStorage.getItem("componentMaster");
+            var componentMaster = await JSON.parse(data);
+
+            if(componentMaster===null){
             const responseGroup = await api.get('/groups');
     
             setRender(responseGroup.data);
-         }
+         }else if(componentMaster==="reload"){
+            const responseGroup = await api.get('/groups');
+    
+            setRender(responseGroup.data);
+         }else{
+            viewContentMaster(componentMaster);
+                }}
          loaderComponents();
      }, []);
 
@@ -49,72 +59,129 @@ function Group({idCloseSectionRight= "group"}) {
         else ;
     }
 
-    async function viewContent(group){
-                console.log(group.content);
-                const responseGroup = await api.get('/search/groups', {
+    async function viewContentMaster(component){
+                
+        if(component.element.hasOwnProperty("content")){
+                const responseGroup = await api.get(component.path, {
                 headers: {
-                     content: group.content
+                     _id: component.element._id
                     }});
-
-                setRender(responseGroup.data);
-                setPrimeira(false);
-            
+                    var newContent = [];
+                    newContent.push(responseGroup.data);
+                    console.log(newContent);
+                    setPrimeiraVez(false);
+                    setContent(newContent);
+                } else {
+                    const responseGroup = await api.get(component.path, {
+                        headers: {
+                             _id: component.element.holder[component.element.holder.length-1]
+                            }});
+                            var newContent = [];
+                            newContent.push(responseGroup.data);
+                            console.log(newContent);
+                            setPrimeiraVez(false);
+                            setContent(newContent);
+                }
+                   
         }
 
-            return( 
-         <div id="group" onClick={handleClose}>
-             
-             <div className="section" id="section">
-                    <spam >Grupos</spam>
-            </div> 
-
-        <div className="sectionComponent">
-            {render.map(group => {
-                if(primeira===true){
-                     if(group.hasOwnProperty("content")){
-                    if(group.holder.length===0){
-                        return( 
-                            <div className="buttonComponent" 
-                            onClick={()=> { setComponent(group); setType("Grupo"); setSectionSee(!sectionSee); }}
-                            onDoubleClick={ ()=> { viewContent(group); }  }
-                            key={group._id}>
-                            <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
-                            <strong id="name">{group.name}</strong>
-                            </div>)
-                    }
-                  
-                }
-            } else{
-                if(group.hasOwnProperty("content")){
-                        return( 
-                            <div className="buttonComponent" 
-                            onClick={()=> { setComponent(group); setType("Grupo"); setSectionSee(!sectionSee); }}
-                            onDoubleClick={ ()=> { viewContent(group); }  }
-                            key={group._id}>
-                            <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
-                            <strong id="name">{group.name}</strong>
-                            </div>)
-                } else {
-                    return( 
-                        <div className="buttonComponent" 
-                        onClick={()=> { setComponent(group); setType("Grupo"); setSectionSee(!sectionSee); }}
-                        key={group._id}>
-                        <LockIcon style={{margin: '0px 10px 0px 10px'}}/>
-                        <strong id="name">{group.name}</strong>
-                        </div>)
-                }
-            }
-
-                }
+        async function viewContent(group){
+                
+            const responseGroup = await api.get('/search/groups', {
+            headers: {
+                 _id: group._id
+                }});
+                var newContent = [];
+                newContent.push(responseGroup.data);
+                console.log(newContent);
+                setPrimeiraVez(false);
+                setContent(newContent);
                
+    }
+    
+    function seeContent(){
+        return(
+            content.map( comp => (
+                comp.content.map( item => (
+                <div className="buttonComponent" 
+                onClick={()=> { setComponent(item); setType("Grupo"); setSectionSee(!sectionSee); }}
+                onDoubleClick={ ()=> { viewContent(item); }  }
+                key={item._id}>
+                <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
+                <strong id="name">{item.name}</strong>
+                </div>
+                ))                  
+               
+                ))
+        )
+    }
+
+    function seeLocks(){
+        
+        return(
+            content.map( comp => (
+                comp.locks.map( item => (
+                   <div className="buttonComponent" 
+                   onClick={()=> { setComponent(item); setType("Trava"); setSectionSee(!sectionSee); }}
+                   key={item._id}>
+                   <LockIcon style={{margin: '0px 10px 0px 10px'}}/>
+                   <strong id="name">{item.name}</strong>
+                   </div>
+                   ))
+            ))
+        )
+    }
             
+        if(primeiraVez){
+                return( 
+                    <div id="group" onClick={handleClose}>
+                        
+                        <div className="section" id="section"> 
+                               <spam >Grupos</spam>
+                       </div> 
+           
+                   <div className="sectionComponent">
+                       {render.map(group => {
+                                if(group.hasOwnProperty("content")){
+                               if(group.holder.length===0){
+                                   return( 
+                                       <div className="buttonComponent" 
+                                       onClick={()=> { setComponent(group); setType("Grupo"); setSectionSee(!sectionSee); }}
+                                       onDoubleClick={ ()=> { viewContent(group); }  }
+                                       key={group._id}>
+                                       <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
+                                       <strong id="name">{group.name}</strong>
+                                       </div>)
+                               }
+                            }
+                        }
+                           )}
+                   </div>
+           
+                   {sectionSee ? <SectionRight component={component} type={type} onDelete={onDelete} onClose={()=> setSectionSee(false)} onUpload={onUpdate}/> : null}
+                   </div>
+               );
+            }else{
+                return(
+                        <div id="group" onClick={handleClose}>
+                            
+                            <div className="section" id="section"> 
+                                   <spam >Grupos</spam>
+                           </div> 
                
-                )}
-        </div>
-
-        {sectionSee ? <SectionRight component={component} type={type} onDelete={onDelete} onClose={()=> setSectionSee(false)} onUpload={onUpdate}/> : null}
-        </div>
-    ); 
+                       <div className="sectionComponent">
+                           
+                     
+                        { seeContent()}
+                         {seeLocks() }
+                               
+                       </div>
+               
+                       {sectionSee ? <SectionRight component={component} type={type} onDelete={onDelete} onClose={()=> setSectionSee(false)} onUpload={onUpdate}/> : null}
+                       </div>
+                   );
+            }
+             
 
 }
 

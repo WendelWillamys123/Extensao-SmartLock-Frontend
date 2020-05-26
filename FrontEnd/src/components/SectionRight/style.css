@@ -9,19 +9,17 @@ div#sectionRight{
     background-color: #ffff;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-left: #acaca870 solid 1px;
-    
 }
 
 div.infoComponent{
-    width: 75%;
+    width: 100%;
     font-family: "Roboto", sans-serif;
     font-weight: bold;
     font-size: 18px;
-    margin: 20px 0px 30px 20px;
+    margin: 20px 0px 30px 10px;
     display: grid;
     grid-template-columns: 1fr;
     align-items: center;
-    padding-left: 10px;
 }
 
 div.crud{
@@ -31,33 +29,39 @@ div.crud{
     flex-direction: column;
     align-items: center;
 }
-div button.Editar{
+div button.editSectionRight{
+    display: flex;
+    align-items: left;
     margin: 2px;
+    margin-left: 0;
     height: 25px;
     width: 100%;
-    border: 1px solid rgb(46, 165, 224);
-    border-radius: 100px;
-    color: rgb(46, 165, 224);
+    border: 1px solid #999999;
+    border-left: 0;
+    border-right: 0;
+    color: #999999;
     background-color: white;
     cursor: pointer;
 }
 
-div button.Excluir{
+div button.rmSectionRight{
+    display: flex;
     margin: 2px;
     height: 25px;
     width: 100%;
-    border: rgb(224, 46, 46) 1px solid;
-    border-radius: 100px;
-    color: rgb(224, 46, 46);
+    border: 1px solid #999999;
+    border-left: 0;
+    border-right: 0;
+    color: #999999;
     background-color: white;
     cursor: pointer;
 }
 
-strong#nameComponent{
+h3#nameComponent{
     margin-bottom: 3px;
 }
 
-span.typeComponent{
+h6.typeComponent{
     color: #999999;
 }
 

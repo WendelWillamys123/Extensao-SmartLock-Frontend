@@ -7,12 +7,16 @@ import { Fab } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Check from '../confirmacao';
 
-function MenuItem ({user, load}){
+function MenuItem ({idUser = () => {}, user, load}){
 
   const [check, setCheck] = useState(false);
 
   function handleClick() {
     setCheck(true);
+  };
+
+  function handleUser() {
+    localStorage.setItem("userId", JSON.stringify(user));
   };
 
 
@@ -25,8 +29,8 @@ function MenuItem ({user, load}){
               </Fab>
             </div>
             <div id="item2">
-              <Link to={`/user/${user._id}`} >
-                <Fab color="primary" aria-label="list" size="small">
+            <Link to="/user" >
+                <Fab color="primary" aria-label="list" size="small" onClick={handleUser}>
                 <ListIcon style={{ fontSize: 20}}/>
               </Fab>
               </Link>
