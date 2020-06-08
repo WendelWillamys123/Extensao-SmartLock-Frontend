@@ -7,7 +7,7 @@ import { Fab } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Check from '../confirmacao';
 
-function MenuItem ({idUser = () => {}, user, load}){
+function MenuItem ({user, load}){
 
   const [check, setCheck] = useState(false);
 
@@ -16,7 +16,7 @@ function MenuItem ({idUser = () => {}, user, load}){
   };
 
   function handleUser() {
-    localStorage.setItem("userId", JSON.stringify(user));
+    sessionStorage.setItem("userId", JSON.stringify(user._id));
   };
 
 

@@ -6,6 +6,7 @@ import SectionRight from '../../SectionRight';
 
 import GroupIcon from '@material-ui/icons/PeopleAltOutlined';
 import LockIcon from '@material-ui/icons/LockOutlined';
+import DoorIcon from '@material-ui/icons/MeetingRoomOutlined';
 
 function Group({idCloseSectionRight= "group"}) {
     
@@ -18,10 +19,13 @@ function Group({idCloseSectionRight= "group"}) {
     const [component, setComponent] = useState('');
     const [type, setType] = useState("");
 
+    const [typeComponent, setTypeComponent] = useState("");
+
+
 
      useEffect(()=>{
         async function loaderComponents() {
-            var data = await localStorage.getItem("componentMaster");
+            var data = await sessionStorage.getItem("componentMaster");
             var componentMaster = await JSON.parse(data);
 
             if(componentMaster===null){
@@ -32,8 +36,9 @@ function Group({idCloseSectionRight= "group"}) {
             const responseGroup = await api.get('/groups');
     
             setRender(responseGroup.data);
-         }else{
-            viewContentMaster(componentMaster);
+         }
+         else{
+            viewContent(componentMaster);
                 }}
          loaderComponents();
      }, []);
@@ -59,53 +64,67 @@ function Group({idCloseSectionRight= "group"}) {
         else ;
     }
 
-    async function viewContentMaster(component){
+    async function viewContent(component){
+        var newContent = [];   
+        
+        const response = await api.get(component.path, {
+            headers: {
+                 _id: component.id
+                }});
+        
                 
-        if(component.element.hasOwnProperty("content")){
-                const responseGroup = await api.get(component.path, {
-                headers: {
-                     _id: component.element._id
-                    }});
-                    var newContent = [];
-                    newContent.push(responseGroup.data);
-                    console.log(newContent);
-                    setPrimeiraVez(false);
-                    setContent(newContent);
-                } else {
-                    const responseGroup = await api.get(component.path, {
-                        headers: {
-                             _id: component.element.holder[component.element.holder.length-1]
-                            }});
-                            var newContent = [];
-                            newContent.push(responseGroup.data);
-                            console.log(newContent);
-                            setPrimeiraVez(false);
-                            setContent(newContent);
-                }
+        newContent.push(response.data);
+        setContent(newContent); 
+
+        if(component.type==="localFisico") setTypeComponent("localFisico");
+        if(component.type==="group") setTypeComponent("Group");
+
+        setPrimeiraVez(false);
+        
+        
+                            //checar entrada: se entra direto no grupo ou no local
+                            //ideia principal: entrar no grupo não mostrar o grupo para poder entra    
                    
         }
 
-        async function viewContent(group){
-                
-            const responseGroup = await api.get('/search/groups', {
-            headers: {
-                 _id: group._id
-                }});
-                var newContent = [];
-                newContent.push(responseGroup.data);
-                console.log(newContent);
-                setPrimeiraVez(false);
-                setContent(newContent);
-               
-    }
-    
+
     function seeContent(){
-        return(
+        
+        if (typeComponent==="Group") return(
+
             content.map( comp => (
                 comp.content.map( item => (
                 <div className="buttonComponent" 
                 onClick={()=> { setComponent(item); setType("Grupo"); setSectionSee(!sectionSee); }}
-                onDoubleClick={ ()=> { viewContent(item); }  }
+                onDoubleClick={ ()=> { 
+                    
+                    var myItens = {
+                        path: "/search/groups",
+                        id: item._id,
+                        type: "group"
+                    }
+                    viewContent(myItens); }  }
+                key={item._id}>
+                <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
+                <strong id="name">{item.name}</strong>
+                </div>
+                ))                  
+               
+                ))
+        );
+        else return (
+            content.map( comp => (
+                comp.groups.map( item => (
+                <div className="buttonComponent" 
+                onClick={()=> { setComponent(item); setType("Grupo"); setSectionSee(!sectionSee); }}
+                onDoubleClick={ ()=> { 
+                    
+                    var myItens = {
+                        path: "/search/groups",
+                        id: item._id,
+                        type: "group"
+                    }
+                    viewContent(myItens); }  }
                 key={item._id}>
                 <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
                 <strong id="name">{item.name}</strong>
@@ -114,11 +133,38 @@ function Group({idCloseSectionRight= "group"}) {
                
                 ))
         )
+
     }
 
+    function seeLocalFisico(){
+        if (typeComponent==="localFisico") return(
+
+           null
+        );
+        else return (  content.map( comp => (
+            comp.localFisico.map( item => (
+            <div className="buttonComponent" 
+            onClick={()=> { setComponent(item); setType("Local Físico"); setSectionSee(!sectionSee); }}
+            onDoubleClick={ ()=> { 
+                
+                var myItens = {
+                    path: "/search/localFisico",
+                    id: item._id,
+                    type: "localFisico"
+                }
+                viewContent(myItens); }  }
+            key={item._id}>
+            <DoorIcon style={{margin: '0px 10px 0px 10px'}}/>
+            <strong id="name">{item.name}</strong>
+            </div>
+            ))                  
+           
+            ))  )
+    }
+
+    
     function seeLocks(){
-        
-        return(
+         return(
             content.map( comp => (
                 comp.locks.map( item => (
                    <div className="buttonComponent" 
@@ -147,7 +193,13 @@ function Group({idCloseSectionRight= "group"}) {
                                    return( 
                                        <div className="buttonComponent" 
                                        onClick={()=> { setComponent(group); setType("Grupo"); setSectionSee(!sectionSee); }}
-                                       onDoubleClick={ ()=> { viewContent(group); }  }
+                                       onDoubleClick={ ()=> { 
+                                        var myItens = {
+                                            path: "/search/groups",
+                                            id: group._id,
+                                            type: "group"
+                                        }
+                                        viewContent(myItens); }  }
                                        key={group._id}>
                                        <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
                                        <strong id="name">{group.name}</strong>
@@ -170,11 +222,11 @@ function Group({idCloseSectionRight= "group"}) {
                            </div> 
                
                        <div className="sectionComponent">
-                           
-                     
-                        { seeContent()}
-                         {seeLocks() }
-                               
+     
+                        {seeLocalFisico()}
+                        {seeContent()    }
+                        {seeLocks()      }
+        
                        </div>
                
                        {sectionSee ? <SectionRight component={component} type={type} onDelete={onDelete} onClose={()=> setSectionSee(false)} onUpload={onUpdate}/> : null}

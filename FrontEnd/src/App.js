@@ -10,7 +10,9 @@ import Lista from './components/SectionCenter/listaUser/lista';
 import Home from './components/SectionCenter/home';
 import Groups from './components/SectionCenter/groups';
 import Locks from './components/SectionCenter/locks';
+import LocalFisico from './components/SectionCenter/localFisico';
 import User from './components/SectionCenter/users';
+import Aplication from './components/Aplication';
 
 
 function App (){
@@ -24,20 +26,22 @@ function App (){
 
   return (
         <div className="App">
-          <Header/>
+          {(window.location.href==="http://localhost:3000/")? null : <Header/>}
           <aside>
-            <SectionLeft/>
+            {(window.location.href==="http://localhost:3000/")? null : <SectionLeft/>}
           </aside>
+           <Switch>
+           <Route exact path="/" component={Aplication}/>
           <main id="center"> 
-          <Switch>
-                <Route exact path="/" component={Home}/>
+                <Route exact path="/home" component={Home}/>
                 <Route exact path="/listaUser" render={()=> <Lista idUser={loadUser}/>}/>
                 <Route exact path="/user" render={()=> <User idUser={id}/>}/>
                 <Route exact path="/groups" component={Groups}/>
                 <Route exact path="/locks" component={Locks}/>
-                <Route component={()=> <div>Erro 404</div>} />
-            </Switch>
+                <Route exact path="/localFisico" component={LocalFisico}/>
+           
           </main>
+           </Switch>
         </div>
   );
 }

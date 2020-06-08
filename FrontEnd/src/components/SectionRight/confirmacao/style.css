@@ -52,6 +52,10 @@ div.input{
     font-size: 13px;
     margin-top: -5px;
     margin-bottom: 24px;
+    margin: 0px 10px 0px 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
 }
 
 div.input input{

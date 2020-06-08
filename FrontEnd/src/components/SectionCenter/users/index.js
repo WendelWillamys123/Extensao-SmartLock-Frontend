@@ -16,15 +16,21 @@ function User(){
     
     useEffect(()=>{
         async function load(){
-            var data = await localStorage.getItem("userId");
-            var userLocal= await JSON.parse(data)
+            var data = await sessionStorage.getItem("userId");
+            var userId= await JSON.parse(data);
 
-            setId(userLocal._id);
-            setNome(userLocal.nome);
-            setEmail(userLocal.email);
-            if(userLocal.matricula==="") setMatricula("Adicionar uma matricula");
-            else setMatricula(userLocal.matricula);
-            setMacs(userLocal.Macs);
+            const response = await api.get('/search/users', {
+                headers: {
+                    _id: userId
+                }
+            });
+            
+            setId(response.data._id);
+            setNome(response.data.nome);
+            setEmail(response.data.email);
+            if(response.data.matricula==="") setMatricula("Adicionar uma matricula");
+            else setMatricula(response.data.matricula);
+            setMacs(response.data.Macs);
         }
         load();
     },[]);
@@ -37,7 +43,7 @@ function User(){
             }
         });
 
-        await localStorage.setItem("userId", JSON.stringify(response.data));
+        await sessionStorage.setItem("userId", JSON.stringify(response.data._id));
 
         setNome(response.data.nome);
         setEmail(response.data.email);

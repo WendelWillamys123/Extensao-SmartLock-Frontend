@@ -1,0 +1,161 @@
+
+div.main-seach{
+    left: 0;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    padding: 0px 20px;
+    font-size:20px;
+    text-align:left;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    align-items: center;
+    display: flex;
+}
+
+
+form.seachForm{
+    margin-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+form.seachForm label{
+    margin: 0 10px 0 10px;
+    color: #acacac;
+    font-size: 15px;
+    font-weight: lighter;
+}
+
+div.input-block{
+    margin: 0 20px 0 50px;
+    width: 65%;
+    align-items: center;
+    left: 50px;
+    margin-right: 10px;
+    display: flex;
+    flex-direction: row;
+    padding: 10px;
+}
+
+form.seachForm input{
+    padding: 10px;
+    margin: 0 10px 0 10px;
+    color: #666;
+    height: 27px;
+    width: 200px;
+    font-size: 14px;
+    border: solid 1px #aaccaa91;
+    border-radius: 20px;
+}
+
+div button.filtrar{
+    margin: 0 10px 0 10px;
+    height: 27px;
+    width: 155px;
+    background: rgb(46, 165, 224);
+    border-radius: 100px;
+    border: 0;
+    color: white;
+    cursor: pointer;
+}
+
+div button.excluir{
+    margin: 0 10px 0 10px;
+    height: 27px;
+    width: 155px;
+    border: rgb(46, 165, 224) 1px solid;
+    border-radius: 100px;
+    color: rgb(46, 165, 224);
+    background-color: white;
+    cursor: pointer;
+}
+
+div button.filtrar:hover{
+    background: #2996CC;
+    transition: background 0.5s;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+div button.excluir:hover{
+    border: rgb(46, 165, 224) 1px solid;
+    color: #2996CC;
+    transition: background 0.5s;
+    box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+div strong{
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 23px;
+}
+
+
+
+
+div.buttonComponent{
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.5);
+    height: 60px;
+    width: 200px;
+    margin: 0px 10px 0px 10px;
+    padding: 10px;
+    align-items: center;
+    display: flex;
+    color: black;
+    border-radius: 30px;
+    background-color: #cccccc;
+}
+
+div#group{
+    width: 100%;
+    height: 100%;
+}
+
+div.sectionComponent{
+    top: 80px;
+    position: absolute;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 100px;
+}
+
+
+
+div strong#name {
+    margin-left: 10px;
+    font-size: 13px;
+    font-family: "Roboto", sans-serif;
+}
+
+div.section{
+    position: absolute;
+    margin: 10px;
+    margin-left: 0;
+    display: flex;
+    top: 20px;
+    left: 0px;
+    align-items: center;
+    border-radius: 0px 50px 50px 0px;
+    height: 27px;
+    width: 300px;
+    border: 1px solid #C67FF1;
+    border-left: none;
+    background-color: white;
+    font-size: 13px;
+}
+
+div spam{
+    margin-left: 25%;
+    color: #C67FF1;
+}
+
+div#buttonUser:hover{
+    background: rgba(169, 71, 230, 0.85);
+    transition: background 0.5s;
+    }

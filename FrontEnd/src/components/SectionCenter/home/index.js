@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import "./style.css";
-import {Redirect, Link} from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
 
 import api from '../../../services/api';
 import SectionRight from '../../SectionRight';
@@ -87,7 +87,7 @@ function Home({idCloseSectionRight= "home"}) {
         <div className="sectionComponent">
             {users.map(user => 
                 <div className="buttonComponent" key={user._id} onDoubleClick={()=> {
-                    localStorage.setItem("userId", JSON.stringify(user));
+                    sessionStorage.setItem("userId", JSON.stringify(user._id));
                     setPath("/user");
                    setRedirect(true);
                    }}>
@@ -106,10 +106,12 @@ function Home({idCloseSectionRight= "home"}) {
                         }}
                         onDoubleClick={ ()=> {
                             var component = {
-                                path: "/search/groups",
-                                element: group
+                                path: '/search/locks',
+                                id: group._id,
+                                type: "group"
                             };
-                            localStorage.setItem("componentMaster", JSON.stringify(component));
+                            sessionStorage.removeItem("componentMaster");
+                            sessionStorage.setItem("componentMaster", JSON.stringify(component));
                              setPath("/groups");
                             setRedirect(true);
                             }
@@ -131,10 +133,13 @@ function Home({idCloseSectionRight= "home"}) {
                         }}
                     onDoubleClick={()=> {
                         var component = {
-                            path: "/search/groups",
-                            element: lock
+                            path: '/search/locks',
+                            id: lock._id,
+                            type: "lock"
                         };
-                        localStorage.setItem("componentMaster", JSON.stringify(component));
+                        sessionStorage.removeItem("componentMaster");
+                        sessionStorage.setItem("componentMaster", JSON.stringify(component));
+                        
                         setPath("/groups");
                        setRedirect(true);
                        }}

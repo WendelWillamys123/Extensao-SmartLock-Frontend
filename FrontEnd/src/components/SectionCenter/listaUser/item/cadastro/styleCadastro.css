@@ -1,4 +1,4 @@
-div.container{
+div.containerFormUser{
     margin-top: 70px;
     width: 289px;
     height: 356px;
@@ -6,7 +6,7 @@ div.container{
     mask-image: radial-gradient(circle at 85% 0, transparent 40px, black 45px);
 }
 
-div#BoxCadastro{
+div#BoxCadastroUser{
     background: #FFFFFF;
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-sizing: border-box;
@@ -15,29 +15,29 @@ div#BoxCadastro{
     height: 356px;
 }
 
-form.formCadastro{
+form.formCadastroUser{
     margin: 30px 0px 0px 20px;
     align-items: left;
     width: 80%;
 }
 
-form.formCadastro label{
+form.formCadastroUser label{
     margin: 2px 5px 2px 5px;
     color: #acacac;
     font-size: 13px;
     font-weight: lighter;
 }
 
-div.input{
+div.inputUser{
     margin: 0px 10px 0px 10px;
     width: 65%;
     margin-right: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     padding: 5px;
 }
 
-form.formCadastro input{
+form.formCadastroUser input{
     padding: 10px;
     margin: 0 5px 0 5px;
     color: #666;
@@ -83,7 +83,7 @@ div button.cancelar:hover{
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-form.formCadastro strong{
+form.formCadastroUser strong{
     margin-left: 87px;
     font-style: normal;
     font-size: 16px;

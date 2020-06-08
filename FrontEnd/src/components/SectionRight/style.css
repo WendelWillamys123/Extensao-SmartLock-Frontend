@@ -44,7 +44,7 @@ div button.editSectionRight{
     cursor: pointer;
 }
 
-div button.rmSectionRight{
+div button.buttonSectionRight{
     display: flex;
     margin: 2px;
     height: 25px;
@@ -63,5 +63,11 @@ h3#nameComponent{
 
 h6.typeComponent{
     color: #999999;
+}
+
+div#dataBreadcrumbs{
+    height: 100px;
+    width: 100%;
+    background-color: rgba(250, 128, 114, 0.616);
 }
 

@@ -11,7 +11,7 @@ function Lista ({idUser = () => {}, id ="listagem"}){
     const [users, setUsers] = useState([]);
     const [nome, setName] = useState('');
     const [array, setArray] = useState([]);
-    const [busca, setBusca] = useState([]);
+   
     const [visibleForm, setVisibleForm] = useState(false);
 
 
@@ -41,8 +41,8 @@ function Lista ({idUser = () => {}, id ="listagem"}){
     async function handleClick(e){
         e.preventDefault();
 
-       await setBusca(users.filter( user =>  (user.nome.includes(nome))));
-       setArray(busca);
+       await setArray(users.filter( user =>  (user.nome.includes(nome))));
+      
     }
 
     const handleClose = (e) => {

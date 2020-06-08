@@ -19,24 +19,29 @@ function SectionLeft(){
 return(
     <div id="sectionLeft">
 
-        <Link to="/" style={{textDecoration: 'none'}}><div className="button">
+        <Link to="/home" style={{textDecoration: 'none'}}><div className="button">
         {<HomeIcon style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}}/>}
         <label id="label1">Home</label>
         </div>
         </Link>
 
         <Link to="/groups" style={{textDecoration: 'none'}}>
-        <div className="button" onClick={()=> {
-            localStorage.setItem("componentMaster", JSON.stringify("reload"))}}>
+        <div className="button" onClick={ ()=>  {
+        sessionStorage.setItem("componentMaster", JSON.stringify("reload"));
+       
+        if(window.location.href==="http://localhost:3000/groups")window.location.reload();
+        }}>
         <GroupIcon style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}}/>
         <label id="label1">Grupos</label>
         </div>
         </Link>
 
+        <Link to="/localFisico" style={{textDecoration: 'none'}}>
         <div className="button">
         <DoorIcon style={{color: '#18A0FB', margin: '0px 12px 0px 12px'}}/>
         <label id="label1">Local físico</label>
         </div>
+        </Link>
 
         <Link to="/locks" style={{textDecoration: 'none'}}>
         <div className="button">
@@ -45,12 +50,15 @@ return(
         </div>
         </Link>
 
+        <Link to="/permissoes" style={{textDecoration: 'none'}}>
         <div className="button">
         <PermissoesIcon  style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}} />
         <label id="label1">Permissões</label>
         </div>
+        </Link>
 
-        <Link to="/listaUser" style={{textDecoration: 'none'}}><div className="button">
+        <Link to="/listaUser" style={{textDecoration: 'none'}}>
+        <div className="button">
         <UserIcon style={{color: '#18A0FB', margin: '0px 10px 0px 10px'}} />
         <label id="label1">Usuários</label>
         </div>

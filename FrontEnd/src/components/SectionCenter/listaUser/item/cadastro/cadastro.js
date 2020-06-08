@@ -12,7 +12,7 @@ function Cadastro ({onClose = () => {}, load}){
     async function cadastrarUser(e) {
         e.preventDefault();
 
-        const response = await api.post('/users', {
+        await api.post('/users', {
             nome,
             email,
             Macs,
@@ -28,11 +28,11 @@ function Cadastro ({onClose = () => {}, load}){
     }
 
     return(
-        <div className="container">
-            <div id="BoxCadastro" >
-                <form className="formCadastro" onSubmit={cadastrarUser}>
+        <div className="containerFormUser">
+            <div id="BoxCadastroUser" >
+                <form className="formCadastroUser" onSubmit={cadastrarUser}>
                 <strong>Cadastro</strong>
-                    <div className="input">
+                    <div className="inputUser">
                         <label htmlFor="nomeUser">Nome</label>
                         <input 
                         name="nomeUser" 
@@ -43,7 +43,7 @@ function Cadastro ({onClose = () => {}, load}){
                         onChange={e => setNome(e.target.value)}/>   
                     </div>
                 
-                    <div className="input">
+                    <div className="inputUser">
                         <label htmlFor="email">Email</label>
                         <input 
                         name="email" 
@@ -54,7 +54,7 @@ function Cadastro ({onClose = () => {}, load}){
                         onChange={e => setEmail(e.target.value)}/>   
                     </div>
 
-                    <div className="input">
+                    <div className="inputUser">
                         <label htmlFor="Macs">Macs</label>
                         <input 
                         name="Macs" 
@@ -65,7 +65,7 @@ function Cadastro ({onClose = () => {}, load}){
                         onChange={e => setMacs(e.target.value)}/>   
                     </div>
 
-                    <div className="input">
+                    <div className="inputUser">
                         <label htmlFor="matricula">Matricula</label>
                         <input 
                         name="matricula" 
