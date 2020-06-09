@@ -91,9 +91,10 @@ function Group({idCloseSectionRight= "group"}) {
     function seeContent(){
         
         if (typeComponent==="Group") return(
-
-            content.map( comp => (
-                comp.content.map( item => (
+            
+            content.map( comp => {
+                if(comp.content===undefined ) return null;
+                else return comp.content.map( item => (
                 <div className="buttonComponent" 
                 onClick={()=> { setComponent(item); setType("Grupo"); setSectionSee(!sectionSee); }}
                 onDoubleClick={ ()=> { 
@@ -110,11 +111,14 @@ function Group({idCloseSectionRight= "group"}) {
                 </div>
                 ))                  
                
-                ))
+    })
         );
         else return (
-            content.map( comp => (
-                comp.groups.map( item => (
+            content.map( comp => {
+                if(comp.groups===undefined ) return null;
+                else {
+                    console.log(comp);
+                return comp.groups.map( item => (
                 <div className="buttonComponent" 
                 onClick={()=> { setComponent(item); setType("Grupo"); setSectionSee(!sectionSee); }}
                 onDoubleClick={ ()=> { 
@@ -129,20 +133,25 @@ function Group({idCloseSectionRight= "group"}) {
                 <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
                 <strong id="name">{item.name}</strong>
                 </div>
-                ))                  
+                )) }                 
                
-                ))
+    })
         )
 
     }
 
     function seeLocalFisico(){
-        if (typeComponent==="localFisico") return(
-
-           null
-        );
-        else return (  content.map( comp => (
-            comp.localFisico.map( item => (
+        console.log(typeComponent);
+        if (typeComponent==="localFisico"){
+         
+        
+        }
+        else {
+            return (  content.map( comp => {
+            if(comp.localFisico===undefined ) return null;
+            else {
+                console.log(comp);
+            return comp.localFisico.map( item => (
             <div className="buttonComponent" 
             onClick={()=> { setComponent(item); setType("Local Físico"); setSectionSee(!sectionSee); }}
             onDoubleClick={ ()=> { 
@@ -157,11 +166,11 @@ function Group({idCloseSectionRight= "group"}) {
             <DoorIcon style={{margin: '0px 10px 0px 10px'}}/>
             <strong id="name">{item.name}</strong>
             </div>
-            ))                  
+            ));}                  
            
-            ))  )
+            })  )
     }
-
+    }
     
     function seeLocks(){
          return(

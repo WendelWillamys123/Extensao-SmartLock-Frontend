@@ -25,6 +25,13 @@ function Check({ id = 'shadow', onClose = () => {}, _id, type, onDelete=()=>{}})
                 }, 
             });
         }
+        else if(type==="Local Fisíco"){
+            await api.delete('/localFisico/delete', { 
+                headers:{
+                    _id: _id,
+                }, 
+            });
+        }
         
          onDelete();
          onClose();

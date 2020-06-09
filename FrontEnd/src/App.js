@@ -10,6 +10,7 @@ import Lista from './components/SectionCenter/listaUser/lista';
 import Home from './components/SectionCenter/home';
 import Groups from './components/SectionCenter/groups';
 import Locks from './components/SectionCenter/locks';
+import ListaLocalFisico from './components/SectionCenter/listarLocalFisico';
 import LocalFisico from './components/SectionCenter/localFisico';
 import User from './components/SectionCenter/users';
 import Aplication from './components/Aplication';
@@ -39,6 +40,7 @@ function App (){
                 <Route exact path="/groups" component={Groups}/>
                 <Route exact path="/locks" component={Locks}/>
                 <Route exact path="/localFisico" component={LocalFisico}/>
+                <Route exact path="/listaLocalFisico" component={ListaLocalFisico}/>
            
           </main>
            </Switch>

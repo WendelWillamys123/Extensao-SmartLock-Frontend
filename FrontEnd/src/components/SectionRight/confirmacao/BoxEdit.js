@@ -20,7 +20,10 @@ function Check({ id = 'shadow', onClose = () => {}, _id, load = () =>{}, type}){
         } else if(type==="Trava"){
             const response = await api.put('/locks', { _id, name});
             load(response.data);
-        }      
+        } else if(type==="Local Fisíco"){
+            const response = await api.put('/localFisico', { _id, name});
+            load(response.data);
+        }     
      }
 
     async function handleUpdate() {

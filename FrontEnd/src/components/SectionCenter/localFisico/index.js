@@ -1,55 +1,61 @@
 import React, {useState, useEffect} from "react";
-import './style.css';
+import "./style.css";
 
-import SectionRight from '../../SectionRight';
 import api from '../../../services/api';
+import SectionRight from '../../SectionRight';
 
-import DoorIcon from '@material-ui/icons/MeetingRoomOutlined';
-import Map from "./Map.js";
+import GroupIcon from '@material-ui/icons/PeopleAltOutlined';
+import LockIcon from '@material-ui/icons/LockOutlined';
 
-function LocalFisico ({idCloseSectionRight ="listagem"}){
 
-    const [local, setLocal] = useState([]);
+function LocalFisico({idCloseSectionRight= "local"}) {
     
-    const [nome, setName] = useState('');
-
-    const [array, setArray] = useState([]);
+    
+    const [content, setContent] = useState([]);
 
     const [sectionSee, setSectionSee] = useState(false);
     const [component, setComponent] = useState('');
     const [type, setType] = useState("");
 
-    useEffect(()=>{
-        async function loaderUser() {
-             const response = await api.get('/local');
-  
-            setLocal(response.data);
-            setArray(response.data);
-         }
-         loaderUser();
+    const [typeComponent, setTypeComponent] = useState("localFisico");
+
+
+
+     useEffect(()=>{
+        async function loaderComponents() {
+            var data = await sessionStorage.getItem("localId");
+            var componentMaster = await JSON.parse(data);
+
+        const response = await api.get('/search/localFisico', {
+            headers: {
+                 _id: componentMaster
+                }});
+
+                
+        var newContent = [];
+        newContent.push(response.data)
+        console.log(newContent)
+        setContent(newContent)
+
+                }
+         loaderComponents();
      }, []);
 
-     async function handleReset() {
-        setArray(local);
-        setName('');
-    }
+     async function reloadComponents() {
+        var data = await sessionStorage.getItem("localId");
+        var componentMaster = await JSON.parse(data);
 
-    async function handleClick(e){
-        e.preventDefault();
-
-       await setArray(local.filter( lock =>  (lock.name.includes(nome))));
       
-    }
+        const response = await api.get('/search/localFisico', {
+             headers: {
+                 _id: componentMaster
+            }});
 
-    const handleClose = (e) => {        
-        if(e.target.id === idCloseSectionRight) setSectionSee(false);
-       
-    }
-    async function reloadComponents() {
-        const response = await api.get('/local');
-
-        setLocal(response.data);
-        setArray(response.data);
+        var newContent = [];
+        newContent.push(response.data)
+        
+        setContent(newContent)
+          
     }
 
     async function onUpdate(){
@@ -62,50 +68,116 @@ function LocalFisico ({idCloseSectionRight ="listagem"}){
         setSectionSee(false);
     }
 
-    return (
-       
-        <>
-        <aside>
-                <div className="main-seach">
-                <form className="seachForm" onSubmit={(e)=> handleClick(e)}>
-                <strong>Filtro</strong>
-                    <div className="input-block">
-                        <label htmlFor="nomeLocal">Nome do LocalFisico</label>
-                        <input 
-                        name="nomeLocal" 
-                        id="nomeLocal"
-                        type="text" 
-                        required 
-                        value={nome}
-                        onChange={e => setName(e.target.value)}/>   
-                    </div>
-                <button type="reset" className="excluir" onClick={handleReset}>Excluir filtro</button>
-               <button type="submit" className="filtrar">Pesquisar</button>
-            </form>
-            </div>
-        </aside>
-            <main>
-        <div className="sectionComponent" onClick={handleClose}>
+     const handleClose = (e) => {
+        if(e.target.id === idCloseSectionRight) setSectionSee(false);
+        else ;
+    }
 
-            {array.map( item => (
+    async function viewContent(component){
+       
+        
+        const response = await api.get(component.path, {
+            headers: {
+                 _id: component.id
+                }});
+        
+         var newContent = [];
+        newContent.push(response.data)
+        
+        setContent(newContent)
+
+        if(component.type==="localFisico") setTypeComponent("localFisico");
+        if(component.type==="group") setTypeComponent("Group");
+
+        }
+
+    function seeContent(){
+        
+        if (typeComponent==="Group") return(
+            
+            content.map( comp => {
+                if(comp.content===undefined ) return null;
+                else return comp.content.map( item => (
+                <div className="buttonComponent" 
+                onClick={()=> { setComponent(item); setType("Grupo"); setSectionSee(!sectionSee); }}
+                onDoubleClick={ ()=> { 
+                    
+                    var myItens = {
+                        path: "/search/groups",
+                        id: item._id,
+                        type: "group"
+                    }
+                    viewContent(myItens); }  }
+                key={item._id}>
+                <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
+                <strong id="name">{item.name}</strong>
+                </div>
+                ))                  
+               
+    })
+        );
+        else return (
+            content.map( comp => {
+                if(comp.groups===undefined ) return null;
+                else {
+                    console.log(comp);
+                return comp.groups.map( item => (
+                <div className="buttonComponent" 
+                onClick={()=> { setComponent(item); setType("Grupo"); setSectionSee(!sectionSee); }}
+                onDoubleClick={ ()=> { 
+                    
+                    var myItens = {
+                        path: "/search/groups",
+                        id: item._id,
+                        type: "group"
+                    }
+                    viewContent(myItens); }  }
+                key={item._id}>
+                <GroupIcon style={{margin: '0px 10px 0px 10px'}}/>
+                <strong id="name">{item.name}</strong>
+                </div>
+                )) }                 
+               
+    })
+        )
+
+    }
+    
+    function seeLocks(){
+         return(
+            content.map( comp => {
+                if(comp.locks===undefined ) return null;
+                else return comp.locks.map( item => {
+                    console.log({item, comp}); return(
                    <div className="buttonComponent" 
                    onClick={()=> { setComponent(item); setType("Trava"); setSectionSee(!sectionSee); }}
                    key={item._id}>
-                   <DoorIcon style={{margin: '0px 10px 0px 10px'}}/>
+                   <LockIcon style={{margin: '0px 10px 0px 10px'}}/>
                    <strong id="name">{item.name}</strong>
-                   </div>
-                   ))
-            }
-            <div id="map" style={{height: "100px", width: "100px"}}>
-            <Map/>
-            </div>
-        </div> 
-     {sectionSee ? <SectionRight component={component} type={type} onDelete={onDelete} onClose={()=> setSectionSee(false)} onUpload={onUpdate}/> : null}
-
-        </main>
-    </>
-
-);
+                   </div>)
+                })
+                })
+        )
     }
+            
+       
+                return( 
+                    <div id="local" onClick={handleClose}>
+                        
+                        <div className="section" id="section"> 
+                               <spam >Local Físico</spam>
+                       </div> 
+           
+                   <div className="sectionComponent">
+                       {seeContent()}
+                       {seeLocks()}
+                   </div>
+           
+                   {sectionSee ? <SectionRight component={component} type={type} onDelete={onDelete} onClose={()=> setSectionSee(false)} onUpload={onUpdate}/> : null}
+                   </div>
+               );
+            
 
-    export default LocalFisico;
+}
+
+export default LocalFisico;

@@ -14,7 +14,6 @@ import api from "../../services/api";
 function SectionLeft({type, component, onDelete=() =>{}, onUpload=() =>{}}){ 
 
     const [render, setRender] = useState('');
-    const [holder, setHolder] = useState([]);
     const [boxRm, setBoxRm] = useState(false);
     const [boxEdit, setBoxEdit] = useState(false);
 
@@ -48,5 +47,3 @@ return(
 };
 
 export default SectionLeft;
-
-//No button folder, colocar componente folders dps da conecção com a api

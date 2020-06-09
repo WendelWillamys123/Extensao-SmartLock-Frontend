@@ -36,7 +36,7 @@ return(
         </div>
         </Link>
 
-        <Link to="/localFisico" style={{textDecoration: 'none'}}>
+        <Link to="/listaLocalFisico" style={{textDecoration: 'none'}}>
         <div className="button">
         <DoorIcon style={{color: '#18A0FB', margin: '0px 12px 0px 12px'}}/>
         <label id="label1">Local físico</label>
